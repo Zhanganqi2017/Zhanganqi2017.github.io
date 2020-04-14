@@ -1,0 +1,521 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" , user-scalable="no"">
+  <title>asyncsandyBlog</title>
+  <link rel="shortcut icon" href="https://github.com/Zhanganqi2017/githubImage/raw/master/sandy.ico">
+  
+    
+    
+      <link rel="stylesheet" href="/css/bootstrap.min.css">
+    
+      <link rel="stylesheet" href="/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="/css/atom-one-dark.css">
+    
+      <link rel="stylesheet" href="/css/jquery.fancybox.css">
+    
+      <link rel="stylesheet" href="/css/nprogress.min.css">
+    
+      <link rel="stylesheet" href="/css/valine.css">
+    
+      <link rel="stylesheet" href="/css/life.css">
+    
+  
+
+  
+
+  <!-- jQuery first, then Tether, then Bootstrap JS. -->
+  
+  
+  
+    <script src="/js/jquery-2.2.4.min.js"></script>
+  
+    <script src="https://cdn1.lncld.net/static/js/3.1.0/av-min.js"></script>
+  
+    <script src="/js/jquery.pjax.js"></script>
+  
+    <script src="/js/nprogress.min.js"></script>
+  
+    <script src="/js/tether.min.js"></script>
+  
+    <script src="/js/bootstrap.min.js"></script>
+  
+    <script src="/js/highlight.min.js"></script>
+  
+    <script src="/js/highlightjs-line-numbers.min.js"></script>
+  
+    <script src="/js/jquery.fancybox.js"></script>
+  
+    <script src="/js/jquery.qrcode.min.js"></script>
+  
+    <script src="/js/Valine.min.js"></script>
+  
+  
+</head>
+<body>
+<script>AV.init({appId:'6sInjSjEcNraY5RpyCzY6U0O-gzGzoHsz',appKey:'WA0ap6mcAX46T8Ea6FkRG9Tc'});</script>
+<script type="text/javascript">
+      var config = {
+            ClasS: 'Counter',
+            el:'.views',
+            elP: '.views-post'
+      }
+</script>
+<div class="container">
+    <div class="row blog-box-shadow">
+        <!--博客主栏开始-->
+        <div class="col-xl-9 col-lg-12 blog-main" id="pjax-box">
+            <header class="blog-header">
+                <a href="http://yoursite.com" class="blog-header-mobile-title">sandyBlog</a>
+                <a href="javascript:;" class="blog-header-navbar-btn"><i class="fa fa-bars"></i></a>
+                <nav class="blog-header-navbar blog-header-fixed">
+                    <ul class="blog-navbar-links">
+                        
+                          <li class="blog-nav-item"><a href="/" class="transition">首页</a></li>
+                        
+                          <li class="blog-nav-item"><a href="/about/" class="transition">关于</a></li>
+                        
+                          <li class="blog-nav-item"><a href="/links/" class="transition">链接</a></li>
+                        
+                        <div class="blog-navbar-right">
+                            <form action>
+                                <div class="input-group">
+                                    <input type="text" class="blog-header-search" placeholder="search...">
+                                    <buttn type="submit" class="blog-header-search-btn"><i class="fa fa-search"></i></buttn>
+                                </div>
+                            </form>
+                        </div>
+                    </ul>
+                </nav>
+            </header>
+                
+<header class="blog-post-page-title">
+    <h4>async</h4>
+    <time datetime="2019-05-27T09:55:35.000Z"><i class="fa fa-clock-o"></i>2019-05-27</time>
+    
+    
+    <span>
+        <i class="fa fa-eye"></i>
+        <span id="/2019/05/27/async/" class="views views-post" title="async"></span>
+    </span>
+    
+    
+    
+	
+        <span><i class="fa fa-folder-o"></i>
+    		
+    	       <a href="/categories/JavaScript/" rel="categories" data-toggle="tooltip" data-placement="top" title="Linux">JavaScript</a>
+    		
+        </span>
+	
+    
+</header>
+<div class="blog-main-post blog-post-page-box">
+    <article class="blog-post-block blog-post-page-content">
+        <section>
+            
+                <p>[TOC]</p>
+<blockquote>
+<p>作为一门单线程的语言，刚学习 JavaScript 语言的时候，我曾怀疑过 JavaScript 在处理 ajax 数据请求，文件解析等过程效率会很低，而且在执行这些任务较大的代码中，会严重阻塞后面代码的执行。但让人兴奋的是，这门语言具有异步加载的特性。</p>
+</blockquote>
+<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><h3 id="1-含义"><a href="#1-含义" class="headerlink" title="1. 含义"></a>1. 含义</h3><p>javascript 提供一种机制来处理程序中多个块的执行，且每个执行块都调用了 JavaScript 引擎，这种机制被称为事件循环。</p>
+<h3 id="2-setTimeout"><a href="#2-setTimeout" class="headerlink" title="2. setTimeout"></a>2. setTimeout</h3><p>setTimeout 在不清楚它的调用机制的时候，可能会容易掉坑。<code>一定要清楚的是，setTimeout 执行的时候，并没有把回调函数放入事件循环队列中，它做的事情只是设置一个定时器，当时间到时后，环境才会把回调函数加入到事件循环队列中</code></p>
+<h6 id="考虑下面的例子"><a href="#考虑下面的例子" class="headerlink" title="考虑下面的例子"></a>考虑下面的例子</h6><pre><code>setTimeout(function(){
+    console.log(&quot;setTimeout&quot;)
+},0)
+console.log(&quot;console&quot;)
+// console,setTimeout
+</code></pre><p>根据 setTimeout 的执行机制，这个例子的先后执行顺序就一目了然了。即便 setTimeout 的定时器时间为0，但是因为事件循环机制，且考虑到浏览器实行的延迟作用，setTimeout 依旧还是会慢与外界的 console。</p>
+<h2 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h2><h3 id="1-含义-1"><a href="#1-含义-1" class="headerlink" title="1.含义"></a>1.含义</h3><p>回调是编写和处理 JavaScript 程序异步逻辑最常用的方式。</p>
+<h3 id="2-嵌套回调和链式回调"><a href="#2-嵌套回调和链式回调" class="headerlink" title="2.嵌套回调和链式回调"></a>2.嵌套回调和链式回调</h3><p>考虑:</p>
+<pre><code>listen(&#39;click&#39;,function handle(){
+    setTimeout(function request(){
+        ajax(&#39;http:XXX&#39;,function response(data){
+            if(data.code===200){code...}
+            else{code...}
+        })
+    },
+    500)
+})
+</code></pre><p>在我初学 javascript 的时候，常写这种函数嵌套在一起构成一条链的代码，因为它能按照我们想要执行的顺序执行，但是这种代码在嵌套多层的时候是很容易让人混乱的，这种代码常常被称为<code>回调地狱</code></p>
+<p>不用嵌套将上述代码重写，可写为:</p>
+<pre><code>listen(&#39;click&#39;,handle)
+function handle(){
+    setTimeout(request,500)
+}
+function request(){
+    ajax(&#39;http:XXX&#39;,response)
+}
+function response(data){
+    if(data.code===200){code...}
+    else{code...}
+}
+</code></pre><h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h3><p>通过上述例子我们可以初步的理解回调的意义，下面将会讲解异步最常使用的 Promise。</p>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><h3 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1.基础知识"></a>1.基础知识</h3><p>Promise（译为期望，期待），是一种封装和组合未来值的易于复用的机制；</p>
+<h4 id="1-1信任问题"><a href="#1-1信任问题" class="headerlink" title="1.1信任问题"></a>1.1信任问题</h4><ol>
+<li>未能传递参数/环境值（如果使用多个参数调用 resolve（） 或者 reject（） 第一个参数之后的所有参数都会被默认忽略</li>
+<li>吞掉错误或异常：在创建 promise 或查看决议的过程中，出现 typeerror 或者 referenceerror，那么这个异常会被捕获，并且会使这个 promise 被拒绝</li>
+<li>是可信任的 promise ：1）向 promise.resolve() 传递非 promise 非 thenable 会得到用这个值填充的 promise 2）向 promise.resolve() 传递一个真正的 promise 只会返回同一个 promise</li>
+</ol>
+<h4 id="1-2-链式流"><a href="#1-2-链式流" class="headerlink" title="1.2 链式流"></a>1.2 链式流</h4><p>调用 then() 时的完成处理函数或拒绝处理函数，如果抛出异常，都会导致链中下一个 promise 因为这个异常而立即被拒绝。如果没有传入拒绝处理函数，那么会使用默认拒绝处理函数。（默认拒绝处理函数，只是把错误重新抛出，使链接的 promise 用同样的错误理由拒绝，从本质来说，这使得错误可以继续沿着 promise 链传播下去，直到遇到显式定义的拒绝函数。）</p>
+<p>注：当给 promise.resolve() 传递的是 promise 或是一个 thenable ，promise.resolve() 会直接返回接收到的 promise,或展开接收到的 thenable 的值。但 promise.reject() 不会像 resolve() 一样进行展开。如果向 reject() 传入 promise/thenable 会将此值原封不动的设置为拒绝理由。</p>
+<h4 id="1-3-错误处理"><a href="#1-3-错误处理" class="headerlink" title="1.3 错误处理"></a>1.3 错误处理</h4><p>对于只有 reject 的then，可以直接使用 <code>.catch()</code></p>
+<h4 id="1-4-promise-模式"><a href="#1-4-promise-模式" class="headerlink" title="1.4 promise 模式"></a>1.4 promise 模式</h4><ol>
+<li>Promise.all([]) 接收一个数组，每个元素都是一个 Promise，主 Promise 在且仅在所有的成员 promise 都完成后才会完成</li>
+<li>Promise.race([]) 这种模式成为 门闩，竞态。一旦有一个 promise 决议为完成，Promise.race([]) 就会完成。一旦有任何一个 promise 决议为拒绝，他就会拒绝。（若数组为空，永远不会决议）</li>
+<li>Promise.none([]) 与all([]) 相反，当所有的 promise 都是拒绝的时候，即拒绝转换为完成值。</li>
+<li>Promise.any([]) 只需要有一个完成，即可转化为完成值</li>
+<li>Promise.first([]) 只要第一个 promise 完成就会忽略后续的任何拒绝和完成</li>
+<li>Promise.last([]) 只要最后一个 promise 完成就会忽略后续的任何拒绝和完成。<h3 id="2-语法"><a href="#2-语法" class="headerlink" title="2.语法"></a>2.语法</h3>下面代码创造了一个 Promise 实例<pre><code>const myPromise = new Promise(function(resolve,reject){
+ // ...code
+ if(/异步执行成功/) {
+     resolve(value)
+ } else {
+     //异步执行失败
+     reject(error)
+ }
+</code></pre>resolve函数的作用是，当 Promise 的状态由未完成转变为成功时调用的函数，reject函数的作用是，当 Promise 的状态由未来城转变为失败时调用的函数<br>Promise 实例生成后，可以使用 <code>then</code> 方法分别指定 resolved 状态和 rejected 状态的回调函数<pre><code>myPromise.then(function(value){
+ // success
+ },function(error){
+     //error
+ }
+)
+</code></pre><code>then</code>的方法可以接收两个参数，第一个回到函数是当 Promise 状态变为成功 resolved 时调用，第二个回调函数是当 Promise 状态变为失败 rejected 时调用，第二个参数是可选的，非必须的</li>
+</ol>
+<h3 id="3-实战练习"><a href="#3-实战练习" class="headerlink" title="3.实战练习"></a>3.实战练习</h3><p>根据上面的事件循环机制，以及 Promise 的语法，考虑下方代码:</p>
+<pre><code>let myPromise = new Promise(function(resolve,reject){
+    console.log(&quot;promise&quot;);
+    resolve()
+})
+myPromise.then(function(){
+    console.log(&quot;resolved.&quot;)
+})
+console.log(&quot;consolelog&quot;)
+// promise
+//consolelog
+//resolved.
+</code></pre><p>上面代码中，Promise 新建后立即执行，所以首先输出的是 “Promise”，然后，then 方法指定回调函数，将当前脚本所有同步任务执行完之后再调用，所以 ，然后输出 “consolelog”，最后执行 then ，输出“resolved.”</p>
+<p>进而再考虑下面代码:</p>
+<pre><code>setTimeout(function(){console.log(&quot;setTimeout&quot;)},0)
+let myPromise = new Promise(function(resolve,reject){
+    console.log(&quot;promise&quot;);
+    resolve()
+}).then(function(){
+    console.log(&quot;resolved.&quot;)
+})
+console.log(&quot;consolelog&quot;)
+// promise -&gt; consolelog -&gt; resolved. -&gt; setTimeout
+</code></pre><p>这段代码即是上面代码加上 setTimeout ，原理是相同的，因为 setTimeout 存在延迟，即便延迟时间为0，它都不属于 Promise 所在的同步任务事件队列中，所以，setTimeout 会在最后执行。</p>
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><p>如何实现下方代码连续打印出 0，1，2.。。9</p>
+<pre><code>for (var i=0;i&lt;10;i++) {
+    setTimeout(()=&gt;{
+        console.log(i)
+    },1000)
+}
+// 打印出 10 个 10
+</code></pre><h4 id="方案一：setTimeout-传入-i，保持-i"><a href="#方案一：setTimeout-传入-i，保持-i" class="headerlink" title="方案一：setTimeout 传入 i，保持 i"></a>方案一：setTimeout 传入 i，保持 i</h4><pre><code>for (var i=0;i&lt;10;i++) {
+    setTimeout((i)=&gt;{
+        console.log(i)
+    },1000,i)
+}
+</code></pre><h4 id="方案二：将-var-修改为-let，因为-let-会重新定义一个全新的-i"><a href="#方案二：将-var-修改为-let，因为-let-会重新定义一个全新的-i" class="headerlink" title="方案二：将 var 修改为 let，因为 let 会重新定义一个全新的 i"></a>方案二：将 var 修改为 let，因为 let 会重新定义一个全新的 i</h4><pre><code>for (let i=0;i&lt;10;i++) {
+    setTimeout(()=&gt;{
+        console.log(i)
+    },1000)
+}
+</code></pre><h4 id="方案三：使用立即函数调用的方式"><a href="#方案三：使用立即函数调用的方式" class="headerlink" title="方案三：使用立即函数调用的方式"></a>方案三：使用立即函数调用的方式</h4><pre><code>for (var i=0;i&lt;10;i++) {
+    (function(i){
+        setTimeout(()=&gt;{console.log(i)},1000)
+    })(i);
+}
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>本文主要讲解了 javascript 的事件循环机制，代码自上而下执行过程中，是存在异步执行的过程的，但在当前所有同步任务的执行依旧是自上而下的。另外，本文主要讲解了 <code>Promise</code> 的主要用法</p>
+</blockquote>
+
+            
+        </section>
+        <footer class="blog-post-page-tags">
+        
+			
+				
+			<a href="/tags/JavaScript/" rel="tag" data-toggle="tooltip" data-placement="top" title="Linux">JavaScript</a>
+				
+			
+		
+        </footer>
+    </article>
+    <article class="blog-post-page-readmore">
+    	
+    	
+		
+			<a href="/2019/06/02/ARIA/" class="blog-post-page-readmore-prev" data-toggle="tooltip" data-placement="top" title="ARIA">上一篇</a>
+		
+
+		
+		
+			<a href="/2019/05/24/type-value/" class="blog-post-page-readmore-next" data-toggle="tooltip" data-placement="top" title="类型和值">下一篇</a>
+		
+
+        <div style="clear: both;"></div>
+    </article>
+
+    <article class="blog-post-block blog-post-page-content">
+            <div class="row">
+            
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span class="post-comments-btn btn btn-info btn-block" data-toggle="tooltip" data-placement="top" title="本站采用Disqus评论组件，若您没有科学上网可能会无法查看并评论">加载评论</span>
+                </div>
+            
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span data-toggle="modal" data-target="#post-donate-content">
+                        <span id="post-donate-btn" class="btn btn-danger btn-block" data-toggle="tooltip" data-placement="top" title="如果您觉得本文还不错或者对您有帮助，可以考虑打赏一下作者哦">打赏本文</span>
+                    </span>
+                </div>
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span data-toggle="modal" data-target="#post-qrcode-content">
+                        <span><span id="post-qrcode-btn" class="btn btn-success btn-block" data-toggle="tooltip" data-placement="top" title="微信扫描二维码手机端查看本文及分享本文">二维码</span></span>
+                    </span>
+                </div>
+            </div>
+        <div class="post-more-function-br"></div>
+
+        <div class="modal fade" id="post-donate-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">打赏本文</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row post-donate-content">
+                            <div class="col-md-4">
+                                <p>支付宝</p>
+                                <img class="post-donate-content-img no-lightbox" src="https://github.com/Zhanganqi2017/githubImage/raw/master/ppic.jpg">
+                            </div>
+                            <div class="col-md-4">
+                                <p>微信</p>
+                                <img class="post-donate-content-img no-lightbox" src="https://github.com/Zhanganqi2017/githubImage/raw/master/ppic.jpg">
+                            </div>
+                            <div class="col-md-4">
+                                <p>财付通</p>
+                                <img class="post-donate-content-img no-lightbox" src="https://github.com/Zhanganqi2017/githubImage/raw/master/ppic.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="post-qrcode-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">文章二维码</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row post-qrcode-content">
+                            <span class="post-qrcode-content-canvas"></span>
+                            <img class="post-qrcode-content-img no-lightbox" src>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            // post QRcode
+            // 中文转码
+            function toUtf8(str) {
+                var out, i, len, c;
+                out = "";
+                len = str.length;
+                for (i = 0; i < len; i++) {
+                    c = str.charCodeAt(i);
+                    if ((c >= 0x0001) && (c <= 0x007F)) {
+                        out += str.charAt(i);
+                    } else if (c > 0x07FF) {
+                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    } else {
+                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    }
+                }
+                return out;
+            }
+            // 生成
+            var qrcode= $('.post-qrcode-content-canvas').qrcode({width: 150,height: 150,text: toUtf8("http://yoursite.com/2019/05/27/async/")}).hide();
+            var canvas=qrcode.find('canvas').get(0);
+            $('.post-qrcode-content-img').attr('src',canvas.toDataURL('image/jpg'));
+        </script>
+
+        
+    </article>
+    
+      <article class="blog-post-block blog-post-page-content" style="margin-top:2.5em;">
+      
+      <div class="comment"></div>
+      <script>
+          new Valine({
+              av: AV, // source from av-min.js
+              el: '.comment' ,
+              notify:false, // 邮件提醒 v1.1.4新增
+              verify:false, // 验证码 v1.1.4新增
+              app_id: '6sInjSjEcNraY5RpyCzY6U0O-gzGzoHsz',
+              app_key: 'WA0ap6mcAX46T8Ea6FkRG9Tc',
+              placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+              path:window.location.pathname // 路径配置 v1.1.5新增，可填window.location.href
+          });
+      </script>
+      </article>
+      
+</div>
+
+                
+            <footer class="blog-footer">
+                <p class="blog-footer-left">Copyright ©  2020 <a href="http://yoursite.com">sandyBlog</a></p>
+                <p class="blog-footer-right">Powered by <a href="https://hexo.io" target="_blank">Hexo</a>,Theme <a href="https://note.isweic.com/themes-life/" target="_blank">Life</a></p>
+            </footer>
+        </div><!--博客主栏结束-->
+        <!--博客侧边栏开始-->
+        <div class="col-xl-3 blog-sidebar">
+            <div class="blog-sidebar-title">
+                <a href>sandyBlog</a>
+            </div>
+            <div class="blog-sidebar-logo">
+                <img src="https://github.com/Zhanganqi2017/githubImage/raw/master/ppic.jpg">
+            </div>
+            <div class="blog-sidebar-count blog-sidebar-padding">
+                <div class="blog-sidebar-count-left">
+                    <p class="blog-sidebar-count-p">8</p>
+                    <span class="blog-sidebar-count-span">文章</span>
+                </div>
+                <div class="blog-sidebar-count-right">
+                    <p class="blog-sidebar-count-p">4</p>
+                    <span class="blog-sidebar-count-span">标签</span>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="blog-sidebar-icon blog-sidebar-padding">
+                <ul>
+                    <li><a href="https://github.com/Zhanganqi2017" class="icon-github" target="_blank" data-toggle="tooltip" data-placement="top" title="Github"><i class="fa fa-github"></i></a></li>
+                    <li><a href class="icon-weibo" target="_blank" data-toggle="tooltip" data-placement="top" title="新浪微博"><i class="fa fa-weibo"></i></a></li>
+                    <li><a href class="icon-twitter" target="_blank" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                    <!--<li><a href="" class="icon-facebook" target="_blank" data-toggle="tooltip" data-placement="top" title="FaceBook"><i class="fa fa-facebook"></i></a></li>-->
+                    <li><a href="mailto:sandy_anqi@qq.com" class="icon-email" data-toggle="tooltip" data-placement="top" title="E-Mail"><i class="fa fa-envelope"></i></a></li>
+                    <li><a href class="icon-rss" data-toggle="tooltip" target="_blank" data-placement="top" title="RSS"><i class="fa fa-rss"></i></a></li>
+                </ul>
+            </div>
+            <div class="blog-sidebar-categories">
+                <h4 class="blog-sidebar-h4"><i class="fa fa-folder-open"></i>&nbsp;文章分类</h4>
+                <ul class="list-group blog-sidebar-padding">
+                  
+                    
+                      <li class="list-group-item justify-content-between">
+                          <a href="/categories/HTML/">HTML</a>
+                          <span class="badge badge-default badge-pill">1</span>
+                      </li>
+                    
+                      <li class="list-group-item justify-content-between">
+                          <a href="/categories/算法/">算法</a>
+                          <span class="badge badge-default badge-pill">1</span>
+                      </li>
+                    
+                      <li class="list-group-item justify-content-between">
+                          <a href="/categories/JavaScript/">JavaScript</a>
+                          <span class="badge badge-default badge-pill">4</span>
+                      </li>
+                    
+                      <li class="list-group-item justify-content-between">
+                          <a href="/categories/Vuejs/">Vuejs</a>
+                          <span class="badge badge-default badge-pill">1</span>
+                      </li>
+                    
+                  
+                </ul>
+            </div>
+            <div class="blog-sidebar-tags">
+                <h4 class="blog-sidebar-h4"><i class="fa fa-tag"></i>&nbsp;标签云</h4>
+                <ul class="blog-sidebar-tags-ul blog-sidebar-padding">
+                  
+                    
+                      <li><a href="/tags/HTML/" class="tag-could" data-toggle="tooltip" data-placement="top" title="HTML">HTML</a></li>
+                    
+                      <li><a href="/tags/算法/" class="tag-could" data-toggle="tooltip" data-placement="top" title="算法">算法</a></li>
+                    
+                      <li><a href="/tags/JavaScript/" class="tag-could" data-toggle="tooltip" data-placement="top" title="JavaScript">JavaScript</a></li>
+                    
+                      <li><a href="/tags/Vuejs/" class="tag-could" data-toggle="tooltip" data-placement="top" title="Vuejs">Vuejs</a></li>
+                    
+                  
+                </ul>
+            </div>
+            <script>
+              // 博客侧栏标签云随机色
+              var tag_cloud = $('.tag-could');
+              tag_cloud.each(function () {
+                  var Cnum = 9;
+                  var Crand = parseInt(Math.random() * Cnum);
+                  $(this).addClass("tag-could" + Crand);
+              })
+            </script>
+            <!--返回顶部按钮-->
+            <div class="retop">
+                <i class="fa fa-angle-up"></i>
+            </div>
+        </div><!--博客侧边栏结束-->
+    </div>
+</div>
+<script src="/js/LeanStatistics.min.js"></script>
+<script src="/js/Life.js"></script>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+    otherF();
+    LeanStatistics();
+    $(document).pjax('a', '#pjax-box', {fragment:'#pjax-box', timeout:8000}).on('pjax:complete', function() {
+      $('pre code').each(function(i, block){
+        hljs.highlightBlock(block);
+      })
+      $('code.hljs').each(function(i, block) {
+        hljs.lineNumbersBlock(block);
+      });
+      LeanStatistics();
+    }).on('pjax:start', function() { NProgress.start(); }).on('pjax:end',   function() {
+      NProgress.done();
+      otherF();
+    });
+</script>
+</body>
+</html>

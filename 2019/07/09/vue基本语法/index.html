@@ -1,0 +1,524 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" , user-scalable="no"">
+  <title>vue基本语法sandyBlog</title>
+  <link rel="shortcut icon" href="https://github.com/Zhanganqi2017/githubImage/raw/master/sandy.ico">
+  
+    
+    
+      <link rel="stylesheet" href="/css/bootstrap.min.css">
+    
+      <link rel="stylesheet" href="/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="/css/atom-one-dark.css">
+    
+      <link rel="stylesheet" href="/css/jquery.fancybox.css">
+    
+      <link rel="stylesheet" href="/css/nprogress.min.css">
+    
+      <link rel="stylesheet" href="/css/valine.css">
+    
+      <link rel="stylesheet" href="/css/life.css">
+    
+  
+
+  
+
+  <!-- jQuery first, then Tether, then Bootstrap JS. -->
+  
+  
+  
+    <script src="/js/jquery-2.2.4.min.js"></script>
+  
+    <script src="https://cdn1.lncld.net/static/js/3.1.0/av-min.js"></script>
+  
+    <script src="/js/jquery.pjax.js"></script>
+  
+    <script src="/js/nprogress.min.js"></script>
+  
+    <script src="/js/tether.min.js"></script>
+  
+    <script src="/js/bootstrap.min.js"></script>
+  
+    <script src="/js/highlight.min.js"></script>
+  
+    <script src="/js/highlightjs-line-numbers.min.js"></script>
+  
+    <script src="/js/jquery.fancybox.js"></script>
+  
+    <script src="/js/jquery.qrcode.min.js"></script>
+  
+    <script src="/js/Valine.min.js"></script>
+  
+  
+</head>
+<body>
+<script>AV.init({appId:'6sInjSjEcNraY5RpyCzY6U0O-gzGzoHsz',appKey:'WA0ap6mcAX46T8Ea6FkRG9Tc'});</script>
+<script type="text/javascript">
+      var config = {
+            ClasS: 'Counter',
+            el:'.views',
+            elP: '.views-post'
+      }
+</script>
+<div class="container">
+    <div class="row blog-box-shadow">
+        <!--博客主栏开始-->
+        <div class="col-xl-9 col-lg-12 blog-main" id="pjax-box">
+            <header class="blog-header">
+                <a href="http://yoursite.com" class="blog-header-mobile-title">sandyBlog</a>
+                <a href="javascript:;" class="blog-header-navbar-btn"><i class="fa fa-bars"></i></a>
+                <nav class="blog-header-navbar blog-header-fixed">
+                    <ul class="blog-navbar-links">
+                        
+                          <li class="blog-nav-item"><a href="/" class="transition">首页</a></li>
+                        
+                          <li class="blog-nav-item"><a href="/about/" class="transition">关于</a></li>
+                        
+                          <li class="blog-nav-item"><a href="/links/" class="transition">链接</a></li>
+                        
+                        <div class="blog-navbar-right">
+                            <form action>
+                                <div class="input-group">
+                                    <input type="text" class="blog-header-search" placeholder="search...">
+                                    <buttn type="submit" class="blog-header-search-btn"><i class="fa fa-search"></i></buttn>
+                                </div>
+                            </form>
+                        </div>
+                    </ul>
+                </nav>
+            </header>
+                
+<header class="blog-post-page-title">
+    <h4>vue基本语法</h4>
+    <time datetime="2019-07-09T15:44:51.000Z"><i class="fa fa-clock-o"></i>2019-07-09</time>
+    
+    
+    <span>
+        <i class="fa fa-eye"></i>
+        <span id="/2019/07/09/vue基本语法/" class="views views-post" title="vue基本语法"></span>
+    </span>
+    
+    
+    
+	
+        <span><i class="fa fa-folder-o"></i>
+    		
+    	       <a href="/categories/Vuejs/" rel="categories" data-toggle="tooltip" data-placement="top" title="Linux">Vuejs</a>
+    		
+        </span>
+	
+    
+</header>
+<div class="blog-main-post blog-post-page-box">
+    <article class="blog-post-block blog-post-page-content">
+        <section>
+            
+                <h1 id="Vue-基本语法"><a href="#Vue-基本语法" class="headerlink" title="Vue 基本语法"></a>Vue 基本语法</h1><h2 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h2><pre><code>- mustache语法：{{msg}}
+- html 赋值：v-html=&quot;&quot;
+- 绑定属性：v-bind：id=&quot;&quot;
+- 使用表达式：{{ok?'yes'：'no'}}
+- 文本赋值：v-text=“”
+- 指令：v-if=&quot;&quot;,v-show=&quot;&quot;(两者的区别是，v-if 当值为 false 时,页面上没有该标签生成, 但是 v-show 无论值为 true 还是 false , 页面都会相对应的 dom 结点)
+- 过滤器：{{a|b}} 和 v-bind:id=&quot;a|b&quot;
+</code></pre><h2 id="Class-和-Style-绑定"><a href="#Class-和-Style-绑定" class="headerlink" title="Class 和 Style 绑定"></a>Class 和 Style 绑定</h2><ul>
+<li>方式一：对象语法<pre><code>v-bind:class=&quot;{active:isActive,&#39;text-danger&#39;:hasError}&quot;
+</code></pre></li>
+<li>方式二：数组语法<pre><code>v-bind:class=&quot;[activeClass,errorClass]&quot;
+</code></pre></li>
+<li>方式三：style 绑定-对象语法<pre><code>v-bind:style=&quot;{color:activeColor,fontSize:fontSize+&#39;px&#39;}&quot;
+</code></pre><h2 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h2></li>
+<li>v-if</li>
+<li>v-else-if</li>
+<li>v-else</li>
+<li>v-show</li>
+<li>v-cloak</li>
+</ul>
+<h4 id="v-cloak-讲解"><a href="#v-cloak-讲解" class="headerlink" title="v-cloak 讲解"></a>v-cloak 讲解</h4><p>当网络不好或者数据量大的时候，页面在渲染的过程中会闪烁 mustache 标签。</p>
+<pre><code>// 为了便于演示效果，将 vue 实例延迟 2s
+&lt;div id=&quot;app&quot;&gt;
+    &lt;span&gt;{{msg}}&lt;/span&gt;
+&lt;/div&gt;
+&lt;scirpt&gt;
+    setTimeout(()=&gt;{
+        new Vue({
+            el:&#39;#app&#39;,
+            data(){
+                return {
+                    msg:&quot;hello&quot;
+                }
+            }
+        })
+    },2000)
+&lt;/script&gt;
+</code></pre><p>因为实例延迟了 2s ，所以页面渲染，结点的显示会由  闪烁为 hello。</p>
+<p>为了解决 mustache 闪烁为问题，为了用户有更好的体验，vue 加入了 v-cloak，在与<code>css:[v-cloak]{display:none}</code> 的配合，可以隐藏未被编译的 mustache 标签直到实例准备完毕。实例化完后，v-cloak 会被自动删除，标签即可显示。</p>
+<pre><code>// 为了便于演示效果，将 vue 实例延迟 2s
+&lt;style type=&quot;text/css&quot;&gt;
+    [v-cloak]{
+        display:none !import;
+    }
+&lt;/style&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;span&gt;{{msg}}&lt;/span&gt;
+&lt;/div&gt;
+&lt;scirpt&gt;
+    setTimeout(()=&gt;{
+        new Vue({
+            el:&#39;#app&#39;,
+            data(){
+                return {
+                    msg:&quot;hello&quot;
+                }
+            }
+        })
+    },2000)
+&lt;/script&gt;
+</code></pre><p>因为加入了 v-cloak ，所以前2s 页面空白，2s 后，页面出现 hello。（加入 import 的原因是，防止 v-cloak 的 display 属性被更高层级的 css 覆盖）</p>
+<h2 id="vue-事件处理器"><a href="#vue-事件处理器" class="headerlink" title="vue 事件处理器"></a>vue 事件处理器</h2><ul>
+<li>v-on:click=”functionName” 或 @click=”functionName”</li>
+<li>给事件指定属性<ul>
+<li>v-on:click.stop(阻止事件冒泡)</li>
+<li>v-on:click.stop.prevent(阻止默认事件执行)</li>
+<li>v-on:click.self(指向事件对象本身)</li>
+<li>v-on:click.once(事件只能执行一次)</li>
+</ul>
+</li>
+<li>给事件指定修饰符<ul>
+<li>v-on:keyup.enter(表示按下 enter 键)<ul>
+<li>enter</li>
+<li>tab</li>
+<li>delete(捕获删除 和 退格 键)</li>
+<li>esc</li>
+<li>up</li>
+<li>down</li>
+<li>left</li>
+<li>right</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Vue-组件"><a href="#Vue-组件" class="headerlink" title="Vue 组件"></a>Vue 组件</h2><p>组件就是自定义的 html 元素。</p>
+<ul>
+<li>全局组件和局部组件</li>
+<li>父子组件通讯 - 数据传递(通过 props 和 emit)</li>
+<li>Slot</li>
+</ul>
+<h4 id="组件使用"><a href="#组件使用" class="headerlink" title="组件使用"></a>组件使用</h4><p>步骤一：创建构建起 Vue.extend()<br>步骤二：注册组件 Vue.component()<br>步骤三：使用组件 组件要挂载在某个实例上，否则不会生效</p>
+<p>创建全局组件</p>
+<pre><code>// 1.创建组件构造器
+var mycomponent = Vue.extend({
+    template:&#39;&lt;div&gt;我是组件&lt;/div&gt;&#39;
+})
+// 2. 注册全局组件
+Vue.component(&#39;my-componnet&#39;,mycomponent);
+// 3.挂载组件
+new Vue({
+    el:&quot;#app&quot;,
+    component:my-component
+})
+</code></pre><h4 id="父组件通过-prop-与子组件进行通信"><a href="#父组件通过-prop-与子组件进行通信" class="headerlink" title="父组件通过 prop 与子组件进行通信"></a>父组件通过 prop 与子组件进行通信</h4><pre><code>&lt;div&gt;
+    &lt;child message=&quot;hello我是父组件&quot;&gt;&lt;/child&gt;
+&lt;/div&gt;
+&lt;script&gt;
+// 注册子组件
+Vue.componnet({
+    //声明 props
+    props:[&#39;message&#39;],
+    template:&#39;&lt;div&gt;{{message}}&lt;/div&gt;&#39;
+})
+// 创建 vue 实例
+new Vue({
+    el:&quot;#app&quot;
+})
+&lt;/script&gt;
+</code></pre><p>jieshu</p>
+
+            
+        </section>
+        <footer class="blog-post-page-tags">
+        
+			
+				
+			<a href="/tags/Vuejs/" rel="tag" data-toggle="tooltip" data-placement="top" title="Linux">Vuejs</a>
+				
+			
+		
+        </footer>
+    </article>
+    <article class="blog-post-page-readmore">
+    	
+    	
+		
+			<a href="/2020/04/14/hhh/" class="blog-post-page-readmore-prev" data-toggle="tooltip" data-placement="top" title="hhh">上一篇</a>
+		
+
+		
+		
+			<a href="/2019/06/02/ARIA/" class="blog-post-page-readmore-next" data-toggle="tooltip" data-placement="top" title="ARIA">下一篇</a>
+		
+
+        <div style="clear: both;"></div>
+    </article>
+
+    <article class="blog-post-block blog-post-page-content">
+            <div class="row">
+            
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span class="post-comments-btn btn btn-info btn-block" data-toggle="tooltip" data-placement="top" title="本站采用Disqus评论组件，若您没有科学上网可能会无法查看并评论">加载评论</span>
+                </div>
+            
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span data-toggle="modal" data-target="#post-donate-content">
+                        <span id="post-donate-btn" class="btn btn-danger btn-block" data-toggle="tooltip" data-placement="top" title="如果您觉得本文还不错或者对您有帮助，可以考虑打赏一下作者哦">打赏本文</span>
+                    </span>
+                </div>
+                <div class="col-md-4 col-sm-4 post-page-more-btn">
+                    <span data-toggle="modal" data-target="#post-qrcode-content">
+                        <span><span id="post-qrcode-btn" class="btn btn-success btn-block" data-toggle="tooltip" data-placement="top" title="微信扫描二维码手机端查看本文及分享本文">二维码</span></span>
+                    </span>
+                </div>
+            </div>
+        <div class="post-more-function-br"></div>
+
+        <div class="modal fade" id="post-donate-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">打赏本文</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row post-donate-content">
+                            <div class="col-md-4">
+                                <p>支付宝</p>
+                                <img class="post-donate-content-img no-lightbox" src="https://github.com/Zhanganqi2017/githubImage/raw/master/ppic.jpg">
+                            </div>
+                            <div class="col-md-4">
+                                <p>微信</p>
+                                <img class="post-donate-content-img no-lightbox" src="https://github.com/Zhanganqi2017/githubImage/raw/master/ppic.jpg">
+                            </div>
+                            <div class="col-md-4">
+                                <p>财付通</p>
+                                <img class="post-donate-content-img no-lightbox" src="https://github.com/Zhanganqi2017/githubImage/raw/master/ppic.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="post-qrcode-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">文章二维码</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row post-qrcode-content">
+                            <span class="post-qrcode-content-canvas"></span>
+                            <img class="post-qrcode-content-img no-lightbox" src>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            // post QRcode
+            // 中文转码
+            function toUtf8(str) {
+                var out, i, len, c;
+                out = "";
+                len = str.length;
+                for (i = 0; i < len; i++) {
+                    c = str.charCodeAt(i);
+                    if ((c >= 0x0001) && (c <= 0x007F)) {
+                        out += str.charAt(i);
+                    } else if (c > 0x07FF) {
+                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    } else {
+                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    }
+                }
+                return out;
+            }
+            // 生成
+            var qrcode= $('.post-qrcode-content-canvas').qrcode({width: 150,height: 150,text: toUtf8("http://yoursite.com/2019/07/09/vue基本语法/")}).hide();
+            var canvas=qrcode.find('canvas').get(0);
+            $('.post-qrcode-content-img').attr('src',canvas.toDataURL('image/jpg'));
+        </script>
+
+        
+    </article>
+    
+      <article class="blog-post-block blog-post-page-content" style="margin-top:2.5em;">
+      
+      <div class="comment"></div>
+      <script>
+          new Valine({
+              av: AV, // source from av-min.js
+              el: '.comment' ,
+              notify:false, // 邮件提醒 v1.1.4新增
+              verify:false, // 验证码 v1.1.4新增
+              app_id: '6sInjSjEcNraY5RpyCzY6U0O-gzGzoHsz',
+              app_key: 'WA0ap6mcAX46T8Ea6FkRG9Tc',
+              placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+              path:window.location.pathname // 路径配置 v1.1.5新增，可填window.location.href
+          });
+      </script>
+      </article>
+      
+</div>
+
+                
+            <footer class="blog-footer">
+                <p class="blog-footer-left">Copyright ©  2020 <a href="http://yoursite.com">sandyBlog</a></p>
+                <p class="blog-footer-right">Powered by <a href="https://hexo.io" target="_blank">Hexo</a>,Theme <a href="https://note.isweic.com/themes-life/" target="_blank">Life</a></p>
+            </footer>
+        </div><!--博客主栏结束-->
+        <!--博客侧边栏开始-->
+        <div class="col-xl-3 blog-sidebar">
+            <div class="blog-sidebar-title">
+                <a href>sandyBlog</a>
+            </div>
+            <div class="blog-sidebar-logo">
+                <img src="https://github.com/Zhanganqi2017/githubImage/raw/master/ppic.jpg">
+            </div>
+            <div class="blog-sidebar-count blog-sidebar-padding">
+                <div class="blog-sidebar-count-left">
+                    <p class="blog-sidebar-count-p">8</p>
+                    <span class="blog-sidebar-count-span">文章</span>
+                </div>
+                <div class="blog-sidebar-count-right">
+                    <p class="blog-sidebar-count-p">4</p>
+                    <span class="blog-sidebar-count-span">标签</span>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="blog-sidebar-icon blog-sidebar-padding">
+                <ul>
+                    <li><a href="https://github.com/Zhanganqi2017" class="icon-github" target="_blank" data-toggle="tooltip" data-placement="top" title="Github"><i class="fa fa-github"></i></a></li>
+                    <li><a href class="icon-weibo" target="_blank" data-toggle="tooltip" data-placement="top" title="新浪微博"><i class="fa fa-weibo"></i></a></li>
+                    <li><a href class="icon-twitter" target="_blank" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                    <!--<li><a href="" class="icon-facebook" target="_blank" data-toggle="tooltip" data-placement="top" title="FaceBook"><i class="fa fa-facebook"></i></a></li>-->
+                    <li><a href="mailto:sandy_anqi@qq.com" class="icon-email" data-toggle="tooltip" data-placement="top" title="E-Mail"><i class="fa fa-envelope"></i></a></li>
+                    <li><a href class="icon-rss" data-toggle="tooltip" target="_blank" data-placement="top" title="RSS"><i class="fa fa-rss"></i></a></li>
+                </ul>
+            </div>
+            <div class="blog-sidebar-categories">
+                <h4 class="blog-sidebar-h4"><i class="fa fa-folder-open"></i>&nbsp;文章分类</h4>
+                <ul class="list-group blog-sidebar-padding">
+                  
+                    
+                      <li class="list-group-item justify-content-between">
+                          <a href="/categories/HTML/">HTML</a>
+                          <span class="badge badge-default badge-pill">1</span>
+                      </li>
+                    
+                      <li class="list-group-item justify-content-between">
+                          <a href="/categories/算法/">算法</a>
+                          <span class="badge badge-default badge-pill">1</span>
+                      </li>
+                    
+                      <li class="list-group-item justify-content-between">
+                          <a href="/categories/JavaScript/">JavaScript</a>
+                          <span class="badge badge-default badge-pill">4</span>
+                      </li>
+                    
+                      <li class="list-group-item justify-content-between">
+                          <a href="/categories/Vuejs/">Vuejs</a>
+                          <span class="badge badge-default badge-pill">1</span>
+                      </li>
+                    
+                  
+                </ul>
+            </div>
+            <div class="blog-sidebar-tags">
+                <h4 class="blog-sidebar-h4"><i class="fa fa-tag"></i>&nbsp;标签云</h4>
+                <ul class="blog-sidebar-tags-ul blog-sidebar-padding">
+                  
+                    
+                      <li><a href="/tags/HTML/" class="tag-could" data-toggle="tooltip" data-placement="top" title="HTML">HTML</a></li>
+                    
+                      <li><a href="/tags/算法/" class="tag-could" data-toggle="tooltip" data-placement="top" title="算法">算法</a></li>
+                    
+                      <li><a href="/tags/JavaScript/" class="tag-could" data-toggle="tooltip" data-placement="top" title="JavaScript">JavaScript</a></li>
+                    
+                      <li><a href="/tags/Vuejs/" class="tag-could" data-toggle="tooltip" data-placement="top" title="Vuejs">Vuejs</a></li>
+                    
+                  
+                </ul>
+            </div>
+            <script>
+              // 博客侧栏标签云随机色
+              var tag_cloud = $('.tag-could');
+              tag_cloud.each(function () {
+                  var Cnum = 9;
+                  var Crand = parseInt(Math.random() * Cnum);
+                  $(this).addClass("tag-could" + Crand);
+              })
+            </script>
+            <!--返回顶部按钮-->
+            <div class="retop">
+                <i class="fa fa-angle-up"></i>
+            </div>
+        </div><!--博客侧边栏结束-->
+    </div>
+</div>
+<script src="/js/LeanStatistics.min.js"></script>
+<script src="/js/Life.js"></script>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+    otherF();
+    LeanStatistics();
+    $(document).pjax('a', '#pjax-box', {fragment:'#pjax-box', timeout:8000}).on('pjax:complete', function() {
+      $('pre code').each(function(i, block){
+        hljs.highlightBlock(block);
+      })
+      $('code.hljs').each(function(i, block) {
+        hljs.lineNumbersBlock(block);
+      });
+      LeanStatistics();
+    }).on('pjax:start', function() { NProgress.start(); }).on('pjax:end',   function() {
+      NProgress.done();
+      otherF();
+    });
+</script>
+</body>
+</html>
